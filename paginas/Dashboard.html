@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloVivo — Dashboard analítico com seus resultados da fazenda sustentável.">
+  <title>Dashboard — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../css/Style.css">
+  <link rel="stylesheet" href="../css/Dashboard.css">
+</head>
+
+<body>
+
+  
+  <nav class="navbar" id="mainNavbar">
+    <div class="navbar-logo">
+      <img src="../imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+      <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+    </div>
+    <ul class="navbar-menu" id="navMenu">
+      <li><a href="../Index.html">Home</a></li>
+      <li><a href="Informacoes.html">Informações</a></li>
+      <li><a href="Simulador.html">Simulador</a></li>
+      <li><a href="Dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="Futuro.html">Futuro</a></li>
+      <li><a href="Certificado.html">Certificado</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="floating-left-controls" style="display:none"></div>
+
+  <div class="a11y-bar" id="a11yBar">
+    <span class="a11y-label">♿ Acessibilidade</span>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+      <button class="a11y-btn" id="a11yFontDown" title="Diminuir fonte">A-</button>
+      <button class="a11y-btn" id="a11yFontRst" title="Tamanho padrão">A</button>
+      <button class="a11y-btn" id="a11yFontUp" title="Aumentar fonte">A+</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+      <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+      <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+      <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+      <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="tts-panel" id="ttsPanel">
+      <div class="tts-header">
+        <span class="a11y-label" style="font-size:0.65rem">🔊 Voz:</span>
+        <span class="tts-status" id="ttsStatus" data-state="idle">—</span>
+      </div>
+      <div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgress"></div></div>
+      <div class="tts-controls">
+        <button class="tts-btn" id="ttsPlay" title="Iniciar leitura">▶ Ler</button>
+        <button class="tts-btn" id="ttsPause" title="Pausar">⏸</button>
+        <button class="tts-btn" id="ttsStop" title="Parar">⏹</button>
+      </div>
+      <div class="tts-settings">
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Voz</span>
+          <select class="tts-select" id="ttsVoiceSelect"></select>
+        </div>
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Velocidade</span>
+          <input class="tts-slider" id="ttsRateSlider" type="range" min="0.5" max="2" step="0.1" value="1">
+          <span class="tts-rate-label" id="ttsRateLabel">1x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-page">
+    <div class="dash-header">
+      <div class="dash-header-inner">
+        <div>
+          <h1>📊 Dashboard SoloVivo</h1>
+          <p>Análise completa do impacto sustentável da sua fazenda</p>
+        </div>
+        <div class="dash-score-big" id="dashScoreBig">
+          <div class="dash-score-num" id="dashScoreNum">0</div>
+          <div class="dash-score-label">Pontuação</div>
+          <div class="dash-score-category" id="dashScoreCat">Agricultor Iniciante</div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-content">
+      <div class="dash-drone-video-container reveal">
+        <video autoplay loop muted playsinline class="drone-video">
+          <source src="../assets/VideoDrone.mp4" type="video/mp4">
+        </video>
+        <div class="drone-overlay">Visão Geral da Fazenda SoloVivo</div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-metric-card reveal delay-1">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-green">🌿</div>
+            <div class="metric-card-trend trend-up" id="trendSust">↑ 0%</div>
+          </div>
+          <div class="metric-card-value" id="dcSust" style="color:#22c55e">0%</div>
+          <div class="metric-card-label">Sustentabilidade Global</div>
+        </div>
+        <div class="dash-metric-card reveal delay-2">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-blue">💧</div>
+            <div class="metric-card-trend trend-up" id="trendWater">↑ 0%</div>
+          </div>
+          <div class="metric-card-value" id="dcWater" style="color:#38bdf8">0%</div>
+          <div class="metric-card-label">Economia de Água</div>
+        </div>
+        <div class="dash-metric-card reveal delay-3">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-green">🌍</div>
+            <div class="metric-card-trend trend-up" id="trendCO2">↑ 0%</div>
+          </div>
+          <div class="metric-card-value" id="dcCO2" style="color:#4ade80">0%</div>
+          <div class="metric-card-label">Redução de CO₂</div>
+        </div>
+        <div class="dash-metric-card reveal delay-4">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-yellow">🦋</div>
+            <div class="metric-card-trend trend-up" id="trendBio">↑ 0%</div>
+          </div>
+          <div class="metric-card-value" id="dcBio" style="color:#facc15">0%</div>
+          <div class="metric-card-label">Biodiversidade</div>
+        </div>
+        <div class="dash-metric-card reveal delay-1">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-yellow">💰</div>
+            <div class="metric-card-trend trend-up" id="trendEco">↑ R$0</div>
+          </div>
+          <div class="metric-card-value" id="dcEco" style="color:#facc15">R$0</div>
+          <div class="metric-card-label">Economia Mensal</div>
+        </div>
+        <div class="dash-metric-card reveal delay-2">
+          <div class="metric-card-header">
+            <div class="metric-card-icon icon-green">🌱</div>
+            <div class="metric-card-trend trend-up" id="trendInst">0/6</div>
+          </div>
+          <div class="metric-card-value" id="dcInst" style="color:#86efac">0</div>
+          <div class="metric-card-label">Melhorias Instaladas</div>
+        </div>
+        <div class="dash-circular-section reveal">
+          <div class="dash-section-title">🎯 Indicadores Circulares</div>
+          <div class="circular-grid">
+            <div class="circular-item">
+              <div class="circular-wrapper">
+                <svg class="circular-svg" viewBox="0 0 100 100" width="100" height="100">
+                  <circle class="circular-track" cx="50" cy="50" r="40" />
+                  <circle class="circular-fill" id="circSust" cx="50" cy="50" r="40" stroke="#22c55e"
+                    stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                </svg>
+                <div class="circular-center">
+                  <span class="circular-percent" id="circSustVal" style="color:#22c55e">0</span>
+                  <span class="circular-unit">%</span>
+                </div>
+              </div>
+              <span class="circular-label">Sustent.</span>
+            </div>
+            <div class="circular-item">
+              <div class="circular-wrapper">
+                <svg class="circular-svg" viewBox="0 0 100 100" width="100" height="100">
+                  <circle class="circular-track" cx="50" cy="50" r="40" />
+                  <circle class="circular-fill" id="circWater" cx="50" cy="50" r="40" stroke="#38bdf8"
+                    stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                </svg>
+                <div class="circular-center">
+                  <span class="circular-percent" id="circWaterVal" style="color:#38bdf8">0</span>
+                  <span class="circular-unit">%</span>
+                </div>
+              </div>
+              <span class="circular-label">Água</span>
+            </div>
+            <div class="circular-item">
+              <div class="circular-wrapper">
+                <svg class="circular-svg" viewBox="0 0 100 100" width="100" height="100">
+                  <circle class="circular-track" cx="50" cy="50" r="40" />
+                  <circle class="circular-fill" id="circCO2" cx="50" cy="50" r="40" stroke="#4ade80"
+                    stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                </svg>
+                <div class="circular-center">
+                  <span class="circular-percent" id="circCO2Val" style="color:#4ade80">0</span>
+                  <span class="circular-unit">%</span>
+                </div>
+              </div>
+              <span class="circular-label">CO₂</span>
+            </div>
+            <div class="circular-item">
+              <div class="circular-wrapper">
+                <svg class="circular-svg" viewBox="0 0 100 100" width="100" height="100">
+                  <circle class="circular-track" cx="50" cy="50" r="40" />
+                  <circle class="circular-fill" id="circBio" cx="50" cy="50" r="40" stroke="#facc15"
+                    stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                </svg>
+                <div class="circular-center">
+                  <span class="circular-percent" id="circBioVal" style="color:#facc15">0</span>
+                  <span class="circular-unit">%</span>
+                </div>
+              </div>
+              <span class="circular-label">Biodiv.</span>
+            </div>
+          </div>
+        </div>
+        <div class="dash-bars-section reveal delay-1">
+          <div class="dash-section-title">📈 Progresso por Área</div>
+          <div class="bar-item">
+            <div class="bar-header">
+              <span class="bar-label">🌿 Sustentabilidade</span>
+              <span class="bar-val" id="bSustVal">0%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bSustFill" style="width:0%;background:linear-gradient(90deg,#14532d,#22c55e)">
+              </div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-header">
+              <span class="bar-label">💧 Água</span>
+              <span class="bar-val" id="bWaterVal">0%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bWaterFill" style="width:0%;background:linear-gradient(90deg,#0c4a6e,#38bdf8)">
+              </div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-header">
+              <span class="bar-label">🌍 CO₂</span>
+              <span class="bar-val" id="bCO2Val">0%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bCO2Fill" style="width:0%;background:linear-gradient(90deg,#065f46,#34d399)">
+              </div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-header">
+              <span class="bar-label">🦋 Biodiversidade</span>
+              <span class="bar-val" id="bBioVal">0%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bBioFill" style="width:0%;background:linear-gradient(90deg,#78350f,#facc15)">
+              </div>
+            </div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-header">
+              <span class="bar-label">💰 Economia</span>
+              <span class="bar-val" id="bEcoVal">R$0</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bEcoFill" style="width:0%;background:linear-gradient(90deg,#92400e,#fbbf24)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-installed-section reveal">
+          <div class="dash-section-title">✅ Melhorias Instaladas</div>
+          <div class="installed-list" id="installedList">
+            <div class="empty-state">
+              <div class="empty-icon">🌱</div>
+              <p>Nenhuma melhoria instalada ainda. <a href="Simulador.html" style="color:var(--verde-vivo)">Vá ao
+                  simulador →</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="dash-impact-section reveal delay-1">
+          <div class="dash-section-title">🌍 Impacto Ambiental Real</div>
+          <div class="impact-grid">
+            <div class="impact-item">
+              <div class="impact-num" id="impactCO2">0</div>
+              <div class="impact-unit">ton CO₂/ano</div>
+              <div class="impact-desc">Emissões evitadas</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-num" id="impactWater">0</div>
+              <div class="impact-unit">mil L/ano</div>
+              <div class="impact-desc">Água economizada</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-num" id="impactTrees">0</div>
+              <div class="impact-unit">árvores</div>
+              <div class="impact-desc">Equivalente preservado</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-num" id="impactSpecies">0</div>
+              <div class="impact-unit">espécies</div>
+              <div class="impact-desc">Habitats protegidos</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-chart-section reveal delay-2">
+          <div class="dash-section-title">📊 Comparativo por Categoria</div>
+          <div class="mini-bar-chart" id="miniChart">
+          </div>
+        </div>
+      </div>
+      <div class="dash-actions">
+        <a href="Simulador.html" class="btn-dash btn-dash-primary">🚜 Voltar ao Simulador</a>
+        <a href="Futuro.html" class="btn-dash btn-dash-primary" style="background:var(--grad-sky)">🔮 Ver Comparação</a>
+        <a href="Certificado.html" class="btn-dash btn-dash-primary" style="background:var(--grad-gold)">🏆 Gerar
+          Certificado</a>
+      </div>
+    </div>
+  </div>
+  <script src="../js/Main.js"></script>
+  <script src="../js/Acessibilidade.js" defer></script>
+  <script src="../js/Dashboard.js"></script>
+</body>
+
+</html>

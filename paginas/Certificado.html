@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloVivo — Certificado de Agricultor Sustentável do Agrinho 2050.">
+  <title>Certificado — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="../css/Style.css">
+  <link rel="stylesheet" href="../css/Certificado.css">
+</head>
+
+<body>
+
+
+  <nav class="navbar" id="mainNavbar">
+    <div class="navbar-logo">
+      <img src="../imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+      <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+    </div>
+    <ul class="navbar-menu" id="navMenu">
+      <li><a href="../Index.html">Home</a></li>
+      <li><a href="Informacoes.html">Informações</a></li>
+      <li><a href="Simulador.html">Simulador</a></li>
+      <li><a href="Dashboard.html">Dashboard</a></li>
+      <li><a href="Futuro.html">Futuro</a></li>
+      <li><a href="Certificado.html" class="active">Certificado</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="a11y-bar" id="a11yBar">
+    <span class="a11y-label">♿ Acessibilidade</span>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+      <button class="a11y-btn" id="a11yFontDown">A-</button>
+      <button class="a11y-btn" id="a11yFontRst">A</button>
+      <button class="a11y-btn" id="a11yFontUp">A+</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+      <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+      <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+      <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+      <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="tts-panel" id="ttsPanel">
+      <div class="tts-header">
+        <span class="a11y-label" style="font-size:0.65rem">🔊 Voz:</span>
+        <span class="tts-status" id="ttsStatus" data-state="idle">—</span>
+      </div>
+      <div class="tts-progress-bar">
+        <div class="tts-progress-fill" id="ttsProgress"></div>
+      </div>
+      <div class="tts-controls">
+        <button class="tts-btn" id="ttsPlay" title="Iniciar leitura">▶ Ler</button>
+        <button class="tts-btn" id="ttsPause" title="Pausar">⏸</button>
+        <button class="tts-btn" id="ttsStop" title="Parar">⏹</button>
+      </div>
+      <div class="tts-settings">
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Voz</span>
+          <select class="tts-select" id="ttsVoiceSelect"></select>
+        </div>
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Velocidade</span>
+          <input class="tts-slider" id="ttsRateSlider" type="range" min="0.5" max="2" step="0.1" value="1">
+          <span class="tts-rate-label" id="ttsRateLabel">1x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="certificate-page">
+    <div class="cert-hero">
+      <h1>🏆 Certificado SoloVivo</h1>
+      <p>Reconhecimento pela sua jornada rumo à sustentabilidade agrícola</p>
+    </div>
+    <div class="cert-content">
+      <div class="cert-form">
+        <div class="cert-form-inner">
+          <div class="cert-input-group">
+            <label for="certName">Seu nome completo</label>
+            <input type="text" id="certName" class="cert-input" placeholder="Digite seu nome aqui..." value=""
+              maxlength="60">
+          </div>
+          <button class="btn-generate" onclick="generateCertificate()">
+            🏆 Gerar Certificado
+          </button>
+        </div>
+      </div>
+      <div class="cert-level-display">
+        <div class="cert-level-badge" id="certLevelBadge">🌱 Carregando...</div>
+        <div class="cert-level-subtitle" id="certLevelSub">Complete o simulador para ver sua categoria</div>
+      </div>
+      <div id="certificate-canvas-wrap">
+        <div class="certificate-card" id="certificateCard">
+          <div class="cert-corner cert-corner-tl">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0 L80 0 L80 10 L10 10 L10 80 L0 80 Z" fill="rgba(34,197,94,0.3)" />
+              <path d="M0 0 L60 0 L60 5 L5 5 L5 60 L0 60 Z" fill="rgba(34,197,94,0.5)" />
+            </svg>
+          </div>
+          <div class="cert-corner cert-corner-tr">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0 L80 0 L80 0 L80 80 L70 80 L70 10 L0 10 Z" fill="rgba(34,197,94,0.3)" />
+              <path d="M20 0 L80 0 L80 60 L75 60 L75 5 L20 5 Z" fill="rgba(34,197,94,0.5)" />
+            </svg>
+          </div>
+          <div style="position:relative;z-index:2">
+            <div class="cert-logo-wrap">🌿</div>
+            <div class="cert-org-name">SoloVivo · Agrinho 2050</div>
+            <div class="cert-title-text">Certificado de Sustentabilidade</div>
+            <div class="cert-separator">
+              <div class="cert-separator-line"></div>
+              <div class="cert-separator-icon">🌱</div>
+              <div class="cert-separator-line"></div>
+            </div>
+            <div class="cert-presented-to">Este certificado é concedido a</div>
+            <div class="cert-recipient-name" id="certRecipientName">
+              Seu Nome Aqui
+            </div>
+            <div class="cert-achievement">
+              Por completar com excelência a Simulação de Fazenda Sustentável do SoloVivo,
+              demonstrando conhecimento e compromisso com o equilíbrio entre produção agrícola
+              e preservação do meio ambiente.
+            </div>
+            <div class="cert-score-row">
+              <div class="cert-score-item">
+                <div class="cert-score-num" id="certScoreNum">0</div>
+                <div class="cert-score-lbl">Pontuação</div>
+              </div>
+              <div class="cert-score-item">
+                <div class="cert-score-num" id="certInstNum">0/8</div>
+                <div class="cert-score-lbl">Melhorias</div>
+              </div>
+              <div class="cert-score-item">
+                <div class="cert-score-num" id="certCO2Num">0%</div>
+                <div class="cert-score-lbl">CO₂ Reduzido</div>
+              </div>
+              <div>
+                <div class="cert-category-badge" id="certCategoryBadge">🌱 Agricultor Consciente</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);text-align:center;margin-top:0.3rem">Categoria
+                </div>
+              </div>
+            </div>
+            <div class="cert-footer-row">
+              <div class="cert-signature">
+                <div class="cert-signature-line"></div>
+                <div class="cert-signature-name">Programa Agrinho 2050</div>
+              </div>
+              <div class="cert-date">
+                <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Data
+                  de Emissão</div>
+                <div class="cert-date-num" id="certDate">—</div>
+              </div>
+              <div class="cert-seal">🏅</div>
+              <div class="cert-signature">
+                <div class="cert-signature-line"></div>
+                <div class="cert-signature-name">SoloVivo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <button class="btn-download" id="btnDownload" onclick="downloadCertificate()">
+          📥 Baixar Certificado (PNG)
+        </button>
+        <button class="btn-share" onclick="shareCertificate()">
+          🔗 Compartilhar
+        </button>
+        <a href="Simulador.html" class="btn-share" style="display:inline-flex;align-items:center;gap:0.6rem">
+          🚜 Melhorar Score
+        </a>
+      </div>
+      <div class="cert-ranks">
+        <h2>🏅 Categorias de Reconhecimento</h2>
+        <div class="ranks-grid">
+          <div class="rank-card" id="rank-consciente">
+            <div class="rank-icon">🌱</div>
+            <div class="rank-title">Agricultor Consciente</div>
+            <div class="rank-range">Score 1–24</div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">Primeiro passo na jornada
+              sustentável.</p>
+            <span class="rank-badge-mini"
+              style="background:rgba(34,197,94,0.15);color:var(--verde-vivo)">Iniciante</span>
+          </div>
+          <div class="rank-card" id="rank-guardiao">
+            <div class="rank-icon">🌿</div>
+            <div class="rank-title">Guardião Verde</div>
+            <div class="rank-range">Score 25–49</div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">Comprometido com a natureza e a
+              produção.</p>
+            <span class="rank-badge-mini" style="background:rgba(56,189,248,0.15);color:#38bdf8">Intermediário</span>
+          </div>
+          <div class="rank-card" id="rank-mestre">
+            <div class="rank-icon">🌳</div>
+            <div class="rank-title">Mestre Sustentável</div>
+            <div class="rank-range">Score 50–74</div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">Referência em práticas
+              agroecológicas.</p>
+            <span class="rank-badge-mini" style="background:rgba(167,139,250,0.15);color:#a78bfa">Avançado</span>
+          </div>
+          <div class="rank-card" id="rank-lenda">
+            <div class="rank-icon">🌟</div>
+            <div class="rank-title">Lenda EcoFarm</div>
+            <div class="rank-range">Score 75–100</div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">O mais alto nível de
+              sustentabilidade agrícola!</p>
+            <span class="rank-badge-mini" style="background:rgba(250,204,21,0.15);color:#facc15">Lenda ★★★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/Main.js"></script>
+  <script src="../js/Acessibilidade.js" defer></script>
+  <script src="../js/Certificado.js"></script>
+</body>
+
+</html>

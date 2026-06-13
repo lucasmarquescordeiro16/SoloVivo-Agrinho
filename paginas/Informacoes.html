@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Informações sobre práticas sustentáveis na agricultura. Dados, fontes e curiosidades sobre sustentabilidade no agronegócio.">
+  <title>Informações — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="../css/Style.css">
+</head>
+
+<body>
+
+  <nav class="navbar" id="mainNavbar">
+    <div class="navbar-logo">
+      <img src="../imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+      <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+    </div>
+    <ul class="navbar-menu" id="navMenu">
+      <li><a href="../Index.html">Home</a></li>
+      <li><a href="Informacoes.html" class="active">Informações</a></li>
+      <li><a href="Simulador.html">Simulador</a></li>
+      <li><a href="Dashboard.html">Dashboard</a></li>
+      <li><a href="Futuro.html">Comparar Futuro</a></li>
+      <li><a href="Certificado.html">Certificado</a></li>
+    </ul>
+    <div class="navbar-actions">
+      <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="a11y-bar" id="a11yBar">
+    <span class="a11y-label">♿ Acessibilidade</span>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+      <button class="a11y-btn" id="a11yFontDown" title="Diminuir fonte">A-</button>
+      <button class="a11y-btn" id="a11yFontRst" title="Tamanho padrão">A</button>
+      <button class="a11y-btn" id="a11yFontUp" title="Aumentar fonte">A+</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+      <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+      <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+      <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+      <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+    </div>
+  </div>
+
+  <header class="info-header reveal">
+    <h1 class="info-title">Conhecimento Sustentável</h1>
+    <p class="info-subtitle">Aprenda mais sobre práticas, benefícios e impactos da agricultura sustentável. 
+    Informações embasadas em dados reais das principais instituições de pesquisa do mundo.</p>
+  </header>
+
+  <main>
+    <div class="info-grid">
+      <div class="info-card reveal">
+        <span class="info-card-icon">🌍</span>
+        <h3 class="info-card-title">O que é agricultura sustentável?</h3>
+        <p class="info-card-text">
+          A agricultura sustentável é aquela que garante a segurança alimentar e nutricional de todos e o desenvolvimento econômico, protegendo simultaneamente os recursos naturais e reforçando a resiliência das propriedades rurais frente às mudanças climáticas.
+        </p>
+        <div class="info-card-source">Fonte: FAO (Organização das Nações Unidas para a Alimentação e a Agricultura)</div>
+      </div>
+
+      <div class="info-card reveal delay-1">
+        <span class="info-card-icon">🌱</span>
+        <h3 class="info-card-title">Principais práticas sustentáveis</h3>
+        <p class="info-card-text">
+          Envolve o Sistema de Plantio Direto (que minimiza o revolvimento do solo), a Integração Lavoura-Pecuária-Floresta (ILPF), a rotação de culturas e o manejo integrado de pragas e doenças, visando sempre a manutenção da vida no campo.
+        </p>
+        <div class="info-card-source">Fonte: Embrapa (Empresa Brasileira de Pesquisa Agropecuária)</div>
+      </div>
+
+      <div class="info-card reveal delay-2">
+        <span class="info-card-icon">🦋</span>
+        <h3 class="info-card-title">Benefícios para o meio ambiente</h3>
+        <p class="info-card-text">
+          A adoção em larga escala de práticas agrícolas regenerativas reduz drasticamente a emissão de gases de efeito estufa, preserva a biodiversidade, melhora a qualidade dos corpos hídricos e recupera vastas áreas de terras degradadas.
+        </p>
+        <div class="info-card-source">Fonte: PNUMA (Programa das Nações Unidas para o Meio Ambiente)</div>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="info-card-icon">📈</span>
+        <h3 class="info-card-title">Benefícios econômicos para produtores</h3>
+        <p class="info-card-text">
+          A sustentabilidade garante maior estabilidade econômica. Produtores reduzem custos operacionais com insumos químicos, aumentam a resiliência contra intempéries (evitando perdas de safra) e acessam mercados premium que valorizam certificações verdes.
+        </p>
+        <div class="info-card-source">Fonte: Banco Mundial</div>
+      </div>
+
+      <div class="info-card reveal delay-1">
+        <span class="info-card-icon">🟤</span>
+        <h3 class="info-card-title">Conservação do Solo</h3>
+        <p class="info-card-text">
+          A manutenção da cobertura vegetal no solo evita o processo erosivo, mantém a fertilidade natural pelo acúmulo de matéria orgânica e promove a retenção de água, garantindo terras férteis para as futuras gerações.
+        </p>
+        <div class="info-card-source">Fonte: Embrapa Solos</div>
+      </div>
+
+      <div class="info-card reveal delay-2">
+        <span class="info-card-icon">💧</span>
+        <h3 class="info-card-title">Uso consciente da água</h3>
+        <p class="info-card-text">
+          A irrigação consome cerca de 72% da água no Brasil. Tecnologias como irrigação de precisão por gotejamento, reuso de água e captação de chuva podem reduzir o consumo hídrico nas fazendas em mais de 40%.
+        </p>
+        <div class="info-card-source">Fonte: Agência Nacional de Águas (ANA)</div>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="info-card-icon">🔄</span>
+        <h3 class="info-card-title">Rotação de Culturas</h3>
+        <p class="info-card-text">
+          Alternar diferentes espécies vegetais na mesma área agrícola quebra o ciclo de vida de pragas e doenças específicas de uma cultura. Além disso, diferentes plantas exploram o solo de formas distintas, equilibrando seus nutrientes.
+        </p>
+        <div class="info-card-source">Fonte: Instituto Agronômico (IAC)</div>
+      </div>
+
+      <div class="info-card reveal delay-1">
+        <span class="info-card-icon">🐞</span>
+        <h3 class="info-card-title">Controle biológico de pragas</h3>
+        <p class="info-card-text">
+          A utilização de inimigos naturais (como certas vespas, fungos e bactérias) para controlar populações de insetos danosos às lavouras substitui os agrotóxicos convencionais, protegendo o meio ambiente e a saúde humana.
+        </p>
+        <div class="info-card-source">Fonte: Embrapa Meio Ambiente</div>
+      </div>
+
+      <div class="info-card reveal delay-2">
+        <span class="info-card-icon">🛰️</span>
+        <h3 class="info-card-title">Agricultura de Precisão</h3>
+        <p class="info-card-text">
+          O uso de imagens de satélite, drones e sensores permite identificar a variabilidade do campo. Isso possibilita aplicar fertilizantes e defensivos apenas nas áreas e quantidades estritamente necessárias, evitando desperdícios e contaminações.
+        </p>
+        <div class="info-card-source">Fonte: ESALQ/USP</div>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="info-card-icon">🌳</span>
+        <h3 class="info-card-title">Agroflorestas (SAF)</h3>
+        <p class="info-card-text">
+          Sistemas Agroflorestais integram o cultivo agrícola com árvores florestais e frutíferas. Eles mimetizam o funcionamento da floresta natural, restaurando ecossistemas enquanto produzem alimentos diversificados e madeira de forma harmoniosa.
+        </p>
+        <div class="info-card-source">Fonte: ICRAF (Centro Internacional de Pesquisa Agroflorestal)</div>
+      </div>
+
+      <div class="info-card reveal delay-1">
+        <span class="info-card-icon">☁️</span>
+        <h3 class="info-card-title">Redução de emissões de Carbono</h3>
+        <p class="info-card-text">
+          A recuperação de milhões de hectares de pastagens degradadas e o uso de bioinsumos podem sequestrar carbono da atmosfera e fixá-lo no solo, transformando a agricultura de uma fonte de emissões em uma aliada no combate ao aquecimento global.
+        </p>
+        <div class="info-card-source">Fonte: Observatório do Clima (SEEG)</div>
+      </div>
+
+      <div class="info-card reveal delay-2">
+        <span class="info-card-icon">🍎</span>
+        <h3 class="info-card-title">Produção de Alimentos Saudáveis</h3>
+        <p class="info-card-text">
+          A adoção de práticas orgânicas e a redução no uso de fertilizantes químicos sintéticos e pesticidas resultam em alimentos com maior valor nutricional e ausência de resíduos tóxicos, essenciais para a saúde pública a longo prazo.
+        </p>
+        <div class="info-card-source">Fonte: Organização Mundial da Saúde (OMS)</div>
+      </div>
+
+      <div class="info-card reveal">
+        <span class="info-card-icon">☀️</span>
+        <h3 class="info-card-title">Tecnologias Sustentáveis no Campo</h3>
+        <p class="info-card-text">
+          Fazendas modernas estão adotando painéis solares para irrigação, biodigestores que transformam dejetos animais em energia elétrica e biogás, além de sistemas automatizados que aumentam radicalmente a eficiência energética da propriedade.
+        </p>
+        <div class="info-card-source">Fonte: Ministério da Agricultura e Pecuária (MAPA)</div>
+      </div>
+
+      <div class="info-card reveal delay-1">
+        <span class="info-card-icon">💡</span>
+        <h3 class="info-card-title">Curiosidades e Fatos</h3>
+        <p class="info-card-text">
+          Para alimentar a população global prevista de 9,7 bilhões de pessoas até o ano de 2050, a produção mundial de alimentos precisará aumentar em quase 70%. Isso só será viável sem destruir os biomas se adotarmos uma agricultura altamente tecnológica e sustentável.
+        </p>
+        <div class="info-card-source">Fonte: ONU (Organização das Nações Unidas)</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="../imagens/Logo.png" alt="SoloVivo" style="width:36px;height:36px;border-radius:50%;object-fit:cover"> SoloVivo
+    </div>
+    <p class="footer-text">Projeto educativo desenvolvido com dados reais e científicos. · Tema: Agro Forte, Futuro Sustentável</p>
+    <div class="footer-links">
+      <a href="../Index.html">Home</a>
+      <a href="Informacoes.html">Informações</a>
+      <a href="Simulador.html">Simulador</a>
+      <a href="Dashboard.html">Dashboard</a>
+      <a href="Futuro.html">Comparar Futuro</a>
+      <a href="Certificado.html">Certificado</a>
+    </div>
+  </footer>
+
+  <script src="../js/Main.js" defer></script>
+  <script src="../js/Acessibilidade.js" defer></script>
+</body>
+
+</html>

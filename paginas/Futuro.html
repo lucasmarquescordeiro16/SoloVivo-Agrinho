@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloVivo — Comparação visual do futuro com e sem sustentabilidade agrícola.">
+  <title>Comparação Futuro — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../css/Style.css">
+  <link rel="stylesheet" href="../css/Futuro.css">
+</head>
+<body>
+
+<nav class="navbar" id="mainNavbar">
+  <div class="navbar-logo">
+    <img src="../imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+    <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+  </div>
+  <ul class="navbar-menu" id="navMenu">
+    <li><a href="../Index.html">Home</a></li>
+    <li><a href="Informacoes.html">Informações</a></li>
+    <li><a href="Simulador.html">Simulador</a></li>
+    <li><a href="Dashboard.html">Dashboard</a></li>
+    <li><a href="Futuro.html" class="active">Comparar Futuro</a></li>
+    <li><a href="Certificado.html">Certificado</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+    <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="a11y-bar" id="a11yBar">
+  <span class="a11y-label">♿ Acessibilidade</span>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+    <button class="a11y-btn" id="a11yFontDown">A-</button>
+    <button class="a11y-btn" id="a11yFontRst">A</button>
+    <button class="a11y-btn" id="a11yFontUp">A+</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+    <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+    <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+    <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+    <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="tts-panel" id="ttsPanel">
+    <div class="tts-header">
+      <span class="a11y-label" style="font-size:0.65rem">🔊 Voz:</span>
+      <span class="tts-status" id="ttsStatus" data-state="idle">—</span>
+    </div>
+    <div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgress"></div></div>
+    <div class="tts-controls">
+      <button class="tts-btn" id="ttsPlay" title="Iniciar leitura">▶ Ler</button>
+      <button class="tts-btn" id="ttsPause" title="Pausar">⏸</button>
+      <button class="tts-btn" id="ttsStop" title="Parar">⏹</button>
+    </div>
+    <div class="tts-settings">
+      <div class="tts-setting-row">
+        <span class="tts-setting-label">Voz</span>
+        <select class="tts-select" id="ttsVoiceSelect"></select>
+      </div>
+      <div class="tts-setting-row">
+        <span class="tts-setting-label">Velocidade</span>
+        <input class="tts-slider" id="ttsRateSlider" type="range" min="0.5" max="2" step="0.1" value="1">
+        <span class="tts-rate-label" id="ttsRateLabel">1x</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="future-page">
+  <div class="future-header">
+    <h1>🔮 Comparar Futuro: Dois Caminhos Possíveis</h1>
+    <p>Arraste o divisor para comparar o futuro <strong style="color:#f87171">sem sustentabilidade</strong> vs <strong style="color:var(--verde-vivo)">com sustentabilidade</strong></p>
+  </div>
+  <div class="comparison-controls">
+    <span class="comparison-label" style="color:#f87171">❌ Sem Sustentabilidade</span>
+    <input type="range" id="compare-slider" min="10" max="90" value="50">
+    <span class="comparison-label" style="color:var(--verde-vivo)">✅ Com Sustentabilidade</span>
+  </div>
+  <div class="comparison-wrapper" id="comparisonWrapper">
+    <img src="../imagens/NaoSustentavel.png" alt="Fazenda degradada" class="compare-img-base">
+    <div class="compare-label-badge label-bad" style="left:20%">❌ Sem Sustentabilidade</div>
+
+    <div class="comparison-overlay" id="rightSide">
+      <img src="../imagens/FazendaSustentavel.png" alt="Fazenda sustentável" class="compare-img-overlay">
+      <div class="compare-label-badge label-good" style="right:20%;left:auto;transform:translateX(50%)">✅ Com Sustentabilidade</div>
+    </div>
+
+    <div class="comparison-divider" id="compDivider" style="left:50%">
+      <div class="divider-handle">↔️</div>
+    </div>
+  </div>
+
+  <div class="compare-data">
+    <h2 style="text-align:center;font-size:1.5rem;font-weight:800;margin-bottom:2rem">📊 Dados Comparativos para 2050</h2>
+    <div class="compare-data-grid" id="compareDataGrid">
+    </div>
+  </div>
+
+  <div class="transform-animation">
+    <h2 class="reveal">Como a <span style="background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Transformação</span> Acontece</h2>
+    <div class="transform-steps">
+      <div class="transform-step reveal delay-1">
+        <div class="ts-icon">🌾</div>
+        <div class="ts-title">Fazenda Convencional</div>
+        <div class="ts-desc">Alto uso de insumos, desperdício de água e emissão de carbono.</div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-step reveal delay-2">
+        <div class="ts-icon">📚</div>
+        <div class="ts-title">Educação e Planejamento</div>
+        <div class="ts-desc">Compreender os impactos ambientais e planejar a transição sustentável.</div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-step reveal delay-3">
+        <div class="ts-icon">⚙️</div>
+        <div class="ts-title">Implementação</div>
+        <div class="ts-desc">Instalar tecnologias verdes e práticas agroecológicas progressivamente.</div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-step reveal delay-4">
+        <div class="ts-icon">🌿</div>
+        <div class="ts-title">SoloVivo 2050</div>
+        <div class="ts-desc">Fazenda carbono neutro, produtiva, com biodiversidade restaurada.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:3rem 5%;background:var(--bg-secondary)">
+    <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:1rem">Escolha o <span style="color:var(--verde-vivo)">futuro verde</span>!</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem">Cada decisão sustentável conta. Comece agora no simulador.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="Simulador.html" class="btn-primary">🚜 Ir ao Simulador</a>
+      <a href="Certificado.html" class="btn-secondary">🏆 Gerar Certificado</a>
+    </div>
+  </div>
+</div>
+
+<script src="../js/Main.js"></script>
+<script src="../js/Acessibilidade.js" defer></script>
+<script src="../js/Futuro.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloVivo — Simulador de Fazenda Sustentável. Instale melhorias ecológicas e transforme sua fazenda.">
+  <title>Simulador — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="../css/Style.css">
+  <link rel="stylesheet" href="../css/Simulador.css">
+</head>
+<body>
+
+
+
+<div id="victoryModal" class="loader-screen hidden" style="background:var(--bg-card);backdrop-filter:blur(12px);z-index:3000">
+  <div style="background:var(--bg-modal);padding:3rem;border-radius:var(--radius-lg);border:2px solid var(--verde-destaque);text-align:center;max-width:520px;box-shadow:var(--shadow-glow)">
+    <div style="font-size:5rem;margin-bottom:1rem;animation:farmFloat 2s ease-in-out infinite">🏆</div>
+    <h2 style="font-size:2.2rem;font-weight:900;background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem">Fazenda 100% Sustentável!</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem;line-height:1.7">Parabéns! Você provou que o agro pode ser produtivo, lucrativo e estar em completa harmonia com o meio ambiente. Este é o futuro do Brasil!</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="Certificado.html" class="btn-primary">🏆 Gerar Certificado</a>
+      <button onclick="document.getElementById('victoryModal').classList.add('hidden')" class="btn-secondary">Continuar Simulando</button>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="navbar" id="mainNavbar">
+  <div class="navbar-logo">
+    <img src="../imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+    <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+  </div>
+  <ul class="navbar-menu" id="navMenu">
+    <li><a href="../Index.html">Home</a></li>
+    <li><a href="Informacoes.html">Informações</a></li>
+    <li><a href="Simulador.html" class="active">Simulador</a></li>
+    <li><a href="Dashboard.html">Dashboard</a></li>
+    <li><a href="Futuro.html">Comparar Futuro</a></li>
+    <li><a href="Certificado.html">Certificado</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+    <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="a11y-bar" id="a11yBar">
+  <span class="a11y-label">♿ Acessibilidade</span>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+    <button class="a11y-btn" id="a11yFontDown">A-</button>
+    <button class="a11y-btn" id="a11yFontRst">A</button>
+    <button class="a11y-btn" id="a11yFontUp">A+</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+    <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+    <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+    <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+    <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="tts-panel" id="ttsPanel">
+    <div class="tts-header">
+      <span class="a11y-label" style="font-size:0.65rem">🔊 Voz:</span>
+      <span class="tts-status" id="ttsStatus" data-state="idle">—</span>
+    </div>
+    <div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgress"></div></div>
+    <div class="tts-controls">
+      <button class="tts-btn" id="ttsPlay" title="Iniciar leitura">▶ Ler</button>
+      <button class="tts-btn" id="ttsPause" title="Pausar">⏸</button>
+      <button class="tts-btn" id="ttsStop" title="Parar">⏹</button>
+    </div>
+    <div class="tts-settings">
+      <div class="tts-setting-row">
+        <span class="tts-setting-label">Voz</span>
+        <select class="tts-select" id="ttsVoiceSelect"></select>
+      </div>
+      <div class="tts-setting-row">
+        <span class="tts-setting-label">Velocidade</span>
+        <input class="tts-slider" id="ttsRateSlider" type="range" min="0.5" max="2" step="0.1" value="1">
+        <span class="tts-rate-label" id="ttsRateLabel">1x</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="install-notification" id="installNotif">✅ Melhoria instalada com sucesso!</div>
+
+<div class="simulator-page">
+  <div class="sim-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;width:100%">
+      <div style="text-align:left">
+        <h1 style="font-size:1.4rem;margin-bottom:0.1rem">🚜 Simulador SoloVivo</h1>
+        <p style="font-size:0.8rem">Transforme sua fazenda — instale melhorias e veja o impacto em tempo real!</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0">
+        <div style="text-align:right">
+          <div style="font-size:0.65rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Orçamento</div>
+          <div id="budgetVal" style="font-size:1.3rem;font-weight:900;color:var(--verde-destaque);font-family:var(--font-accent)">R$ 1.500</div>
+          <div id="incomeTip" style="font-size:0.65rem;color:var(--verde-destaque);opacity:0.7"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sim-layout">
+    <aside class="sim-panel-left" id="improvementsPanel">
+      <div id="quickUpgradeSection" style="margin-bottom:1.5rem;padding:1rem;background:var(--bg-card);border:2px solid var(--verde-vivo);border-radius:var(--radius-md);position:relative;overflow:hidden">
+        <div class="panel-title" style="margin-bottom:1rem">Próxima Melhoria</div>
+        <div id="quickUpgradeContent"></div>
+      </div>
+    </aside>
+
+    <main class="sim-center" id="farmScene">
+      <div class="sim-progress-bar">
+        <div class="sim-progress-fill" id="simProgressFill" style="width:0%"></div>
+      </div>
+      <div class="score-badge" id="scoreBadge">
+        🌿 Sustentabilidade: <span id="scoreBadgeValue">0</span>%
+      </div>
+      <div class="farm-elements" style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;position:relative;z-index:1;background:#0f172a;">
+        <img id="farmImage" src="../imagens/UpgradesSimulador/Inicio.png" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);">
+      </div>
+    </main>
+
+    <aside class="sim-panel-right" id="metricsPanel">
+      <div class="panel-title">📊 Indicadores</div>
+
+      <div class="metric-item">
+        <div class="metric-header">
+          <span class="metric-label">🌿 Sustentabilidade</span>
+          <span class="metric-value" id="mSustVal">0%</span>
+        </div>
+        <div class="metric-bar-bg"><div class="metric-bar-fill" id="mSustBar" style="width:0%;background:linear-gradient(90deg,#14532d,#22c55e)"></div></div>
+        <span class="metric-change change-positive" id="mSustChange">Instale melhorias para aumentar!</span>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-header">
+          <span class="metric-label">💧 Economia de Água</span>
+          <span class="metric-value" id="mWaterVal">0%</span>
+        </div>
+        <div class="metric-bar-bg"><div class="metric-bar-fill" id="mWaterBar" style="width:0%;background:linear-gradient(90deg,#0c4a6e,#38bdf8)"></div></div>
+        <span class="metric-change" id="mWaterChange" style="color:var(--text-muted)">—</span>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-header">
+          <span class="metric-label">🌍 Redução de CO₂</span>
+          <span class="metric-value" id="mCO2Val">0%</span>
+        </div>
+        <div class="metric-bar-bg"><div class="metric-bar-fill" id="mCO2Bar" style="width:0%;background:linear-gradient(90deg,#065f46,#34d399)"></div></div>
+        <span class="metric-change" id="mCO2Change" style="color:var(--text-muted)">—</span>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-header">
+          <span class="metric-label">🦋 Biodiversidade</span>
+          <span class="metric-value" id="mBioVal">0%</span>
+        </div>
+        <div class="metric-bar-bg"><div class="metric-bar-fill" id="mBioBar" style="width:0%;background:linear-gradient(90deg,#78350f,#facc15)"></div></div>
+        <span class="metric-change" id="mBioChange" style="color:var(--text-muted)">—</span>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-header">
+          <span class="metric-label">💰 Economia Mensal</span>
+          <span class="metric-value" id="mEcoVal">R$0</span>
+        </div>
+        <div class="metric-bar-bg"><div class="metric-bar-fill" id="mEcoBar" style="width:0%;background:linear-gradient(90deg,#92400e,#fbbf24)"></div></div>
+        <span class="metric-change" id="mEcoChange" style="color:var(--text-muted)">—</span>
+      </div>
+
+      <div class="metric-item" style="text-align:center;border-color:var(--verde-vivo)">
+        <div style="font-size:0.65rem;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.2rem">Pontuação Total</div>
+        <div style="font-size:2.8rem;font-weight:900;color:var(--verde-vivo);font-family:var(--font-accent);line-height:1" id="totalScore">0</div>
+        <div style="font-size:0.78rem;color:var(--amarelo-ouro);margin-top:0.25rem;font-weight:700" id="scoreCategory">🚜 Agricultor Iniciante</div>
+        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.2rem">Renda passiva: <span id="incomeRateDisplay">R$100</span>/8s</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.4rem">
+        <a href="Dashboard.html" class="btn-goto-dashboard">📊 Dashboard Completo →</a>
+        <a href="Futuro.html" class="btn-goto-dashboard" style="background:var(--grad-sky)">🔮 Comparar Futuro →</a>
+        <a href="Certificado.html" class="btn-goto-dashboard" style="background:var(--grad-gold)">🏆 Certificado →</a>
+        <button class="btn-reset-sim" onclick="resetSimulator()">🔄 Reiniciar Fazenda</button>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<section class="sim-edu-panel">
+  <div class="sim-edu-wrapper reveal">
+    <div class="sim-edu-header">
+      <h2 class="sim-edu-title">Como este simulador ajuda?</h2>
+      <p class="sim-edu-desc">
+        Este simulador demonstra de forma prática como decisões sustentáveis podem impactar positivamente uma propriedade rural. Ao comparar diferentes escolhas de manejo, é possível visualizar os seguintes benefícios reais:
+      </p>
+    </div>
+    
+    <div class="sim-edu-grid">
+      <div class="sim-edu-feature reveal delay-1">
+        <div class="sim-edu-icon icon-blue-bg">💧</div>
+        <h4>Economia de água</h4>
+        <p>Práticas de irrigação inteligente e reuso reduzem drasticamente o consumo hídrico na produção.</p>
+      </div>
+      
+      <div class="sim-edu-feature reveal delay-2">
+        <div class="sim-edu-icon icon-gold-bg">🟤</div>
+        <h4>Qualidade do solo</h4>
+        <p>O plantio direto e a adubação orgânica mantêm o solo vivo, fértil e estruturalmente produtivo.</p>
+      </div>
+      
+      <div class="sim-edu-feature reveal delay-3">
+        <div class="sim-edu-icon icon-green-bg">🌍</div>
+        <h4>Menor impacto ambiental</h4>
+        <p>A diminuição do uso de químicos e do desmatamento ajuda a preservar biomas e ecossistemas inteiros.</p>
+      </div>
+      
+      <div class="sim-edu-feature reveal delay-4">
+        <div class="sim-edu-icon icon-emerald-bg">📈</div>
+        <h4>Eficiência produtiva</h4>
+        <p>A sustentabilidade aumenta a resiliência climática da safra, garantindo lucro constante e seguro.</p>
+      </div>
+    </div>
+    
+    <div class="sim-edu-footer reveal delay-2">
+      <p>
+        Objetivo: Conscientizar sobre a importância da agricultura sustentável e mostrar como pequenas mudanças geram grandes benefícios para o produtor, a sociedade e o meio ambiente.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script src="../js/Main.js"></script>
+<script src="../js/Acessibilidade.js" defer></script>
+<script src="../js/Simulador.js"></script>
+</body>
+</html>

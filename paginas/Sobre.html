@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SoloVivo — Sobre o Projeto">
+  <title>Sobre — SoloVivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="../css/Style.css">
+</head>
+<body>
+
+<nav class="navbar" id="mainNavbar">
+  <div class="navbar-logo">
+    <img src="../imagens/Logo.png" alt="SoloVivo Logo" class="logo-icon">
+    <a href="../Index.html" style="color:inherit"><span>Solo<strong class="logo-text-bold">Vivo</strong></span></a>
+  </div>
+  <ul class="navbar-menu" id="navMenu">
+    <li><a href="../Index.html">Home</a></li>
+    <li><a href="Informacoes.html">Informações</a></li>
+    <li><a href="Simulador.html">Simulador</a></li>
+    <li><a href="Sobre.html" class="active">Sobre</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+    <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="a11y-bar" id="a11yBar">
+  <span class="a11y-label">♿ Acessibilidade</span>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+    <button class="a11y-btn" id="a11yFontDown">A-</button>
+    <button class="a11y-btn" id="a11yFontRst">A</button>
+    <button class="a11y-btn" id="a11yFontUp">A+</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+    <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+    <button class="a11y-btn" id="a11yHighContrast">Alto</button>
+  </div>
+  <div class="a11y-divider"></div>
+  <div class="a11y-group">
+    <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+    <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+    <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+  </div>
+</div>
+
+<main style="max-width: 1200px; margin: 6rem auto 2rem auto; padding: 2rem;">
+  <h1 style="font-size: 3rem; color: var(--verde-destaque); text-align: center; margin-bottom: 2rem;">Sobre o SoloVivo</h1>
+  <p style="font-size: 1.2rem; line-height: 1.8; text-align: center; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
+    O SoloVivo é uma plataforma interativa focada em educar e demonstrar práticas de agricultura sustentável. 
+    Através do nosso simulador, você pode visualizar o impacto de implementações ecológicas em uma fazenda.
+  </p>
+</main>
+
+<script src="../js/Main.js"></script>
+<script src="../js/Acessibilidade.js" defer></script>
+</body>
+</html>
