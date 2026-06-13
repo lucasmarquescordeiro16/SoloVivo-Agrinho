@@ -320,7 +320,7 @@ Ferramentas de inteligência artificial foram utilizadas como apoio durante o de
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/lucasmarquescordeiro16/Agrinho.git
+git clone https://github.com/lucasmarquescordeiro16/SoloVivo-Agrinho
 ```
 
 2. Acesse a pasta do projeto.
@@ -341,7 +341,7 @@ ou utilize uma extensão como:
 
 ### Repositório GitHub
 
-https://github.com/lucasmarquescordeiro16/Agrinho
+https://github.com/lucasmarquescordeiro16/SoloVivo-Agrinho
 
 
 
