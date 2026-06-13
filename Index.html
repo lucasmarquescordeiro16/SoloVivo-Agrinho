@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="SoloVivo — Tecnologia e sustentabilidade para o agro do futuro. Simulador interativo de práticas ecológicas para o Agrinho 2050.">
+  <meta name="keywords"
+    content="SoloVivo, Agrinho, sustentabilidade, agro, fazenda sustentável, meio ambiente, tecnologia verde">
+  <title>SoloVivo — Agro Forte, Futuro Sustentável</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="css/Style.css">
+</head>
+
+<body>
+
+  <div class="loader-screen" id="loaderScreen">
+    <div class="loader-particles">
+      <span class="lp">🌱</span>
+      <span class="lp">🍃</span>
+      <span class="lp">☀️</span>
+      <span class="lp">💧</span>
+      <span class="lp">🌿</span>
+      <span class="lp">🌾</span>
+      <span class="lp">🦋</span>
+      <span class="lp">🐝</span>
+    </div>
+    <div class="loader-ring">
+      <div class="loader-ring-inner"></div>
+      <div class="loader-logo"><img src="imagens/Logo.png" alt="SoloVivo"></div>
+    </div>
+    <div class="loader-brand">
+      <span class="loader-brand-solo">Solo</span><span class="loader-brand-vivo">Vivo</span>
+    </div>
+    <div class="loader-tagline">Agro Forte, Futuro Sustentável</div>
+    <div class="loader-bar">
+      <div class="loader-fill"></div>
+    </div>
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <nav class="navbar" id="mainNavbar">
+    <div class="navbar-logo">
+      <img src="imagens/Logo.png" alt="SoloVivo" class="logo-icon">
+      <span>Solo<strong class="logo-text-bold">Vivo</strong></span>
+    </div>
+      <ul class="navbar-menu" id="navMenu">
+        <li><a href="Index.html" class="active">Home</a></li>
+        <li><a href="paginas/Informacoes.html">Informações</a></li>
+        <li><a href="paginas/Simulador.html">Simulador</a></li>
+        <li><a href="paginas/Dashboard.html">Dashboard</a></li>
+        <li><a href="paginas/Futuro.html">Comparar Futuro</a></li>
+        <li><a href="paginas/Certificado.html">Certificado</a></li>
+      </ul>
+    <div class="navbar-actions">
+      <button class="btn-theme" id="themeToggle" title="Alternar tema">☀️</button>
+      <button class="btn-a11y-toggle" id="a11yToggle" aria-label="Acessibilidade">♿</button>
+      <a href="paginas/Simulador.html" class="btn-nav-cta">▶ Jogar</a>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="a11y-bar" id="a11yBar">
+    <span class="a11y-label">♿ Acessibilidade</span>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Texto:</span>
+      <button class="a11y-btn" id="a11yFontDown" title="Diminuir fonte">A-</button>
+      <button class="a11y-btn" id="a11yFontRst" title="Tamanho padrão">A</button>
+      <button class="a11y-btn" id="a11yFontUp" title="Aumentar fonte">A+</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Contraste:</span>
+      <button class="a11y-btn" id="a11yNormalContrast">Normal</button>
+      <button class="a11y-btn" id="a11yHighContrast">Alto Contraste</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="a11y-group">
+      <span class="a11y-label" style="font-size:0.65rem">Leitura:</span>
+      <button class="a11y-btn" id="a11yReadingOff">Padrão</button>
+      <button class="a11y-btn" id="a11yReading">Modo Leitura</button>
+    </div>
+    <div class="a11y-divider"></div>
+    <div class="tts-panel" id="ttsPanel">
+      <div class="tts-header">
+        <span class="a11y-label" style="font-size:0.65rem">🔊 Voz:</span>
+        <span class="tts-status" id="ttsStatus" data-state="idle">—</span>
+      </div>
+      <div class="tts-progress-bar"><div class="tts-progress-fill" id="ttsProgress"></div></div>
+      <div class="tts-controls">
+        <button class="tts-btn" id="ttsPlay" title="Iniciar leitura">▶ Ler</button>
+        <button class="tts-btn" id="ttsPause" title="Pausar">⏸</button>
+        <button class="tts-btn" id="ttsStop" title="Parar">⏹</button>
+      </div>
+      <div class="tts-settings">
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Voz</span>
+          <select class="tts-select" id="ttsVoiceSelect"></select>
+        </div>
+        <div class="tts-setting-row">
+          <span class="tts-setting-label">Velocidade</span>
+          <input class="tts-slider" id="ttsRateSlider" type="range" min="0.5" max="2" step="0.1" value="1">
+          <span class="tts-rate-label" id="ttsRateLabel">1x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="hero-video-section" id="home">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-left reveal-left">
+      <div class="hero-badge">
+        <span>🏆</span>
+        <span>Concurso Agrinho · Tema 2050</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="highlight">Agro Forte,</span><br>
+        Futuro<br>
+        <span class="highlight-blue">Sustentável</span>
+      </h1>
+      <div class="hero-theme-tag">
+        ✦ "Equilíbrio entre produção e meio ambiente"
+      </div>
+      <p class="hero-subtitle">
+        Transforme uma fazenda comum em um modelo sustentável do futuro.
+        Instale energias renováveis, replante florestas e descubra como
+        o agro pode ser a solução para o planeta.
+      </p>
+      <div class="hero-buttons">
+        <a href="paginas/Simulador.html" class="btn-primary" id="btnStartSim">
+          ▶ Iniciar Simulação
+        </a>
+        <a href="#problems" class="btn-secondary">
+          💡 Saiba Mais
+        </a>
+      </div>
+    </div>
+    <div class="hero-video-right reveal-right">
+      <div class="hero-video-container">
+        <video autoplay loop muted playsinline>
+          <source src="assets/VideoAnimacaoPalavras.mp4" type="video/mp4">
+          Seu navegador não suporta vídeos.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-section" id="stats">
+    <div class="stats-grid">
+      <div class="stat-card reveal delay-1">
+        <div class="stat-icon">💧</div>
+        <div>
+          <span class="stat-number counter" data-target="4200">0</span>
+          <span class="stat-suffix">L</span>
+        </div>
+        <div class="stat-label">Água Economizada por Hectare</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.4">
+          Adotando práticas sustentáveis de irrigação
+        </div>
+      </div>
+      <div class="stat-card reveal delay-2">
+        <div class="stat-icon">🌿</div>
+        <div>
+          <span class="stat-number counter" data-target="73">0</span>
+          <span class="stat-suffix">%</span>
+        </div>
+        <div class="stat-label">Redução de CO₂ Possível</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.4">
+          Com práticas agrícolas sustentáveis
+        </div>
+      </div>
+      <div class="stat-card reveal delay-3">
+        <div class="stat-icon">🌳</div>
+        <div>
+          <span class="stat-number counter" data-target="12500">0</span>
+        </div>
+        <div class="stat-label">Árvores Preservadas no Agrinho</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.4">
+          Através de manejo consciente do solo
+        </div>
+      </div>
+      <div class="stat-card reveal delay-4">
+        <div class="stat-icon">☀️</div>
+        <div>
+          <span class="stat-number counter" data-target="85">0</span>
+          <span class="stat-suffix">%</span>
+        </div>
+        <div class="stat-label">Energia Renovável Possível</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.4">
+          Na operação sustentável da fazenda
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section style="padding:4rem 5%;background:var(--bg-secondary)">
+    <div style="max-width:1100px;margin:0 auto">
+      <div class="section-header reveal" style="margin-bottom:2rem">
+        <div class="section-tag">🚁 Vista Aérea</div>
+        <h2 class="section-title">O Campo Visto de Cima</h2>
+        <p class="section-subtitle">Uma perspectiva única do território agrícola — onde tecnologia e natureza se
+          encontram.</p>
+      </div>
+      <div class="drone-video-deco reveal">
+        <span class="drone-video-deco-label">🚁 VideoDrone — Vista Aérea</span>
+        <video autoplay loop muted playsinline>
+          <source src="assets/VideoDrone.mp4" type="video/mp4">
+          Seu navegador não suporta vídeos.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="problems-section" id="problems">
+    <div class="section-header reveal">
+      <div class="section-tag">⚠️ O Problema</div>
+      <h2 class="section-title">Os Desafios do Agro Atual</h2>
+      <p class="section-subtitle">O Brasil é uma potência agrícola, mas enfrenta sérios desafios ambientais que ameaçam
+        o futuro da produção.</p>
+    </div>
+    <div class="problems-grid">
+      <div class="problem-card reveal delay-1">
+        <span class="problem-icon">💧</span>
+        <h3>Crise Hídrica</h3>
+        <p>A irrigação convencional desperdiça até 50% da água. Com mudanças climáticas, cada gota se torna preciosa
+          para a produção rural.</p>
+        <span class="problem-stat">↑ 40% de escassez até 2050</span>
+        <div style="font-size:0.75rem;color:var(--verde-destaque);margin-top:0.8rem;border-top:1px dashed var(--border-color);padding-top:0.5rem">Fonte: ANA (Agência Nac. de Águas)</div>
+      </div>
+      <div class="problem-card reveal delay-2">
+        <span class="problem-icon">🌍</span>
+        <h3>Degradação do Solo</h3>
+        <p>O uso excessivo de agroquímicos e o plantio incorreto destroem a microbiota do solo, reduzindo a fertilidade
+          natural da terra.</p>
+        <span class="problem-stat">25% do solo agrícola degradado</span>
+        <div style="font-size:0.75rem;color:var(--verde-destaque);margin-top:0.8rem;border-top:1px dashed var(--border-color);padding-top:0.5rem">Fonte: FAO / ONU</div>
+      </div>
+      <div class="problem-card reveal delay-3">
+        <span class="problem-icon">🦋</span>
+        <h3>Perda de Biodiversidade</h3>
+        <p>O desmatamento para lavouras elimina habitats naturais. Polinizadores como abelhas são essenciais para a
+          produção de alimentos.</p>
+        <span class="problem-stat">1 milhão de espécies ameaçadas</span>
+        <div style="font-size:0.75rem;color:var(--verde-destaque);margin-top:0.8rem;border-top:1px dashed var(--border-color);padding-top:0.5rem">Fonte: IPBES / ONU</div>
+      </div>
+      <div class="problem-card reveal delay-4">
+        <span class="problem-icon">🏭</span>
+        <h3>Emissões de Carbono</h3>
+        <p>O setor agropecuário é responsável por ~30% das emissões globais de gases de efeito estufa, acelerando o
+          aquecimento global.</p>
+        <span class="problem-stat">30% das emissões globais</span>
+        <div style="font-size:0.75rem;color:var(--verde-destaque);margin-top:0.8rem;border-top:1px dashed var(--border-color);padding-top:0.5rem">Fonte: IPCC</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="solutions-section" id="solutions">
+    <div class="section-header reveal">
+      <div class="section-tag">✅ As Soluções</div>
+      <h2 class="section-title">Práticas Sustentáveis do Futuro</h2>
+      <p class="section-subtitle">A tecnologia e a tradição unidas para criar um modelo agrícola que alimenta o mundo
+        sem destruir o planeta.</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card reveal delay-1">
+        <div class="card-glow"></div>
+        <div class="solution-num">01</div>
+        <h3>☀️ Energia Solar Rural</h3>
+        <p>Painéis fotovoltaicos alimentam bombas de irrigação, armazéns refrigerados e residências rurais, eliminando a
+          dependência de combustíveis fósseis e reduzindo custos em até 70%.</p>
+        <div class="solution-tags">
+          <span class="tag">Renovável</span>
+          <span class="tag">-70% custo</span>
+          <span class="tag">Zero emissão</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados na Absolar</div>
+      </div>
+      <div class="solution-card reveal delay-2">
+        <div class="card-glow"></div>
+        <div class="solution-num">02</div>
+        <h3>💧 Captação de Chuva</h3>
+        <p>Cisternas inteligentes coletam e filtram a água da chuva, criando reservatórios estratégicos que garantem
+          irrigação mesmo em períodos de seca prolongada.</p>
+        <div class="solution-tags">
+          <span class="tag">-60% consumo</span>
+          <span class="tag">Resiliência</span>
+          <span class="tag">Baixo custo</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados na ANA</div>
+      </div>
+      <div class="solution-card reveal delay-3">
+        <div class="card-glow"></div>
+        <div class="solution-num">03</div>
+        <h3>🌱 Compostagem</h3>
+        <p>Resíduos orgânicos transformados em adubo natural rico em nutrientes, eliminando o uso de fertilizantes
+          químicos e devolvendo vida ao solo.</p>
+        <div class="solution-tags">
+          <span class="tag">Solo saudável</span>
+          <span class="tag">Zero resíduo</span>
+          <span class="tag">Orgânico</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados no MMA</div>
+      </div>
+      <div class="solution-card reveal delay-4">
+        <div class="card-glow"></div>
+        <div class="solution-num">04</div>
+        <h3>🌲 Reflorestamento</h3>
+        <p>Plantio de espécies nativas em Áreas de Preservação Permanente restaura corredores ecológicos, regula o clima
+          local e sequestra carbono da atmosfera.</p>
+        <div class="solution-tags">
+          <span class="tag">Carbono</span>
+          <span class="tag">APP</span>
+          <span class="tag">Biodiversidade</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados no Observatório do Clima</div>
+      </div>
+      <div class="solution-card reveal delay-1">
+        <div class="card-glow"></div>
+        <div class="solution-num">05</div>
+        <h3>🤖 Irrigação Inteligente</h3>
+        <p>Sensores de umidade no solo e IA determinam o momento e a quantidade exata de água necessária para cada
+          cultura, evitando desperdícios.</p>
+        <div class="solution-tags">
+          <span class="tag">IoT</span>
+          <span class="tag">Precisão</span>
+          <span class="tag">-50% água</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados na ESALQ/USP</div>
+      </div>
+      <div class="solution-card reveal delay-2">
+        <div class="card-glow"></div>
+        <div class="solution-num">06</div>
+        <h3>🐝 Jardim de Polinizadores</h3>
+        <p>Áreas com plantas nativas que atraem abelhas, borboletas e outros polinizadores, aumentando a produtividade
+          das culturas naturalmente.</p>
+        <div class="solution-tags">
+          <span class="tag">+30% produção</span>
+          <span class="tag">Nativa</span>
+          <span class="tag">Ecossistema</span>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;font-weight:600">Dados baseados na IPBES</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="reveal">Pronto para <span
+        style="background:var(--grad-green);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">transformar</span>
+      sua fazenda?</h2>
+    <p class="reveal delay-1">Entre no simulador, faça suas escolhas e veja sua fazenda se transformar em um modelo para
+      o futuro sustentável.</p>
+    <a href="paginas/Simulador.html" class="btn-cta-big reveal delay-2">
+      ▶ Iniciar a Simulação Agora 🌿
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="imagens/Logo.png" alt="SoloVivo" style="width:36px;height:36px;border-radius:50%;object-fit:cover"> SoloVivo
+    </div>
+    <p class="footer-text">Projeto desenvolvido para o Concurso Agrinho · Tema: Agro Forte, Futuro Sustentável</p>
+    <div class="footer-links">
+      <a href="Index.html">Home</a>
+      <a href="paginas/Informacoes.html">Informações</a>
+      <a href="paginas/Simulador.html">Simulador</a>
+      <a href="paginas/Dashboard.html">Dashboard</a>
+      <a href="paginas/Futuro.html">Comparar Futuro</a>
+      <a href="paginas/Certificado.html">Certificado</a>
+    </div>
+    <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:2rem">2050 SoloVivo · Agro forte, futuro sustentável · Agrinho 2050</p>
+  </footer>
+
+  <script src="js/Main.js" defer></script>
+  <script src="js/Acessibilidade.js" defer></script>
+</body>
+
+</html>
