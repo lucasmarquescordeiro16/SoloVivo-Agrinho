@@ -171,7 +171,7 @@ O site adapta-se automaticamente a:
 │   ├── Simulador.html
 │   └── Sobre.html
 │
-├── Index.html
+├── index.html
 └── README.md
 ```
 
@@ -328,7 +328,7 @@ git clone https://github.com/lucasmarquescordeiro16/Agrinho.git
 3. Abra o arquivo:
 
 ```text
-Index.html
+index.html
 ```
 
 ou utilize uma extensão como:
